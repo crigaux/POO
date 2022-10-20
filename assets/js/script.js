@@ -29,6 +29,9 @@ function hurt() {
 function idle() {
     knightContainer.setAttribute('src', './assets/img/goodKnight/knightIdle.gif');
 }
+function walk() {
+    knightContainer.setAttribute('src', './assets/img/goodKnight/knightWalk.gif');
+}
 function jump() {
     knightContainer.setAttribute('src', './assets/img/goodKnight/knightJump.gif');
 }
@@ -45,79 +48,86 @@ function evilKnightHurt() {
 function evilKnightIdle() {
     evilKnightContainer.setAttribute('src', './assets/img/badKnight/evilKnightIdle.gif');
 }
+function evilKnightWalk() {
+    evilKnightContainer.setAttribute('src', './assets/img/badKnight/evilKnightWalk.gif');
+}
 function evilKnightJump() {
     evilKnightContainer.setAttribute('src', './assets/img/badKnight/evilKnightJump.gif');
 }
 
-idle();
-evilKnightIdle();
 
 let results = document.querySelectorAll('.resultContainer > span');
 let display = document.querySelector('.displayContainer');
 
-for(let i = 0 ; i < results.length ; i++) {
-    setTimeout(() => {
-        document.querySelector('.button').disabled = true;
-        if(results[i].className == 'damages'){
-            setTimeout(() => {
-                evilKnightAttack();
+
+walk();
+evilKnightWalk();
+
+setTimeout(() => {
+    for(let i = 0 ; i < results.length ; i++) {
+        setTimeout(() => {
+            document.querySelector('.button').disabled = true;
+            if(results[i].className == 'damages'){
                 setTimeout(() => {
-                    hurt();
-                    heroActualLife -= heroLifeLost;
-                    document.querySelector('.heroLife').style='width:'+heroActualLife+'%'
+                    evilKnightAttack();
                     setTimeout(() => {
-                        evilKnightIdle();
+                        hurt();
+                        heroActualLife -= heroLifeLost;
+                        document.querySelector('.heroLife').style='width:'+heroActualLife+'%'
+                        setTimeout(() => {
+                            evilKnightIdle();
+                            setTimeout(() => {
+                                idle();
+                            }, 800);
+                        }, 200);
+                    }, 400);
+                }, 600);
+            } else if(results[i].className == 'heroAttack'){
+                setTimeout(() => {
+                    knightContainer.style='filter: drop-shadow(16px 16px 20px red);';
+                    attack();
+                    setTimeout(() => {
+                        evilKnightHurt();
+                        orcActualLife -= orcLifeLost;
+                        document.querySelector('.orcLife').style='width:'+orcActualLife+'%'
                         setTimeout(() => {
                             idle();
-                        }, 800);
-                    }, 200);
-                }, 400);
-            }, 600);
-        } else if(results[i].className == 'heroAttack'){
-            setTimeout(() => {
-                knightContainer.style='filter: drop-shadow(16px 16px 20px red);';
-                attack();
-                setTimeout(() => {
-                    evilKnightHurt();
-                    orcActualLife -= orcLifeLost;
-                    document.querySelector('.orcLife').style='width:'+orcActualLife+'%'
-                    setTimeout(() => {
-                        idle();
-                        setTimeout(() => {
-                            knightContainer.style='filter: none;';
-                            evilKnightIdle();
-                        }, 800);
-                    }, 200);
-                }, 400);
-            }, 600);
-        } else if(results[i].className == 'orcDeath'){
-            setTimeout(() => {
-                knightContainer.style='filter: drop-shadow(16px 16px 20px gold);';
-                attack();
-                setTimeout(() => {
-                    evilKnightDeath();
-                    document.querySelector('.orcLife').style='width:0%'
-                    document.querySelector('h2').textContent = 'VICTOIRE !';
-                    document.querySelector('h2').style = 'background-color:green;';
-                    setTimeout(() => {
-                        jump();
-                    }, 300);
+                            setTimeout(() => {
+                                knightContainer.style='filter: none;';
+                                evilKnightIdle();
+                            }, 800);
+                        }, 200);
+                    }, 400);
                 }, 600);
-            }, 600);
-        } else if(results[i].className == 'heroDeath'){
-            setTimeout(() => {
-                evilKnightAttack();
+            } else if(results[i].className == 'orcDeath'){
                 setTimeout(() => {
-                    death();
-                    document.querySelector('.heroLife').style='width:0%'
-                    document.querySelector('h2').textContent = 'DEFAITE...';
-                    document.querySelector('h2').style = 'background-color:red;';
+                    knightContainer.style='filter: drop-shadow(16px 16px 20px gold);';
+                    attack();
                     setTimeout(() => {
-                        evilKnightJump();
-                    }, 300);
-                }, 400);
-            }, 600);
-        }
-        document.querySelector('.button').disabled = false;
-    }, 1000 * i);
-}
+                        evilKnightDeath();
+                        document.querySelector('.orcLife').style='width:0%'
+                        document.querySelector('h2').textContent = 'VICTOIRE !';
+                        document.querySelector('h2').style = 'background-color:green;';
+                        setTimeout(() => {
+                            jump();
+                        }, 300);
+                    }, 600);
+                }, 600);
+            } else if(results[i].className == 'heroDeath'){
+                setTimeout(() => {
+                    evilKnightAttack();
+                    setTimeout(() => {
+                        death();
+                        document.querySelector('.heroLife').style='width:0%'
+                        document.querySelector('h2').textContent = 'DEFAITE...';
+                        document.querySelector('h2').style = 'background-color:red;';
+                        setTimeout(() => {
+                            evilKnightJump();
+                        }, 300);
+                    }, 400);
+                }, 600);
+            }
+            document.querySelector('.button').disabled = false;
+        }, 1000 * i);
+    }
+}, 4500);

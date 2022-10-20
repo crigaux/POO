@@ -1,9 +1,8 @@
 <?php
-    require_once(__DIR__ .'/character.php');
-    require_once(__DIR__ .'/hero.php');
-    require_once(__DIR__ .'/orc.php');
+    require_once(__DIR__ .'/Hero.php');
+    require_once(__DIR__ .'/Orc.php');
 
-    $hero = new Hero(1500, 0, 'Excalibur', 250, 'Armure de plate', 200);
+    $hero = new Hero(2000, 0, 'Excalibur', 250, 'Armure de plate', 200);
     $orc = new Orc(500, 0);
 ?>
 
@@ -29,7 +28,7 @@
     </div>
 
     <h2>
-        Niveau 3 - 100000000000000000000
+        Niveau 3 - 10000000000000000
     </h2>
 
     <div class="container">

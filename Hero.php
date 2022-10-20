@@ -1,5 +1,6 @@
 <?php
-
+    require_once(__DIR__ .'/Character.php');
+    
     class Hero extends Character {
 
         private string $_weapon;

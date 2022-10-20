@@ -1,4 +1,5 @@
 <?php
+    require_once(__DIR__ .'/Character.php');
 
     /**
      * [Description Orc]
@@ -17,5 +18,13 @@
 
         public function setDamages(int $value):void{
             $this->_damages = $value;
+        }
+
+        /**
+         * Méthode permettant d'initialiser la valeur d'attaque de l'orc avec un nombre aléatoire
+         * @return int
+         */
+        public function attack():int{
+            return rand(600, 800);
         }
     }
