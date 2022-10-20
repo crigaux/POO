@@ -8,7 +8,10 @@
         private string $_shield;
         private int $_shieldValue;
 
-        // Méthodes magiques
+        // #################################################
+        // #####               Construct               #####
+        // #################################################
+        
         public function __construct(int $health, int $rage, string $weapon, int $weaponDamage, string $shield, int $shieldValue){
 
             parent::__construct($health, $rage);
@@ -23,6 +26,11 @@
         //     return "<h2>Statistiques du personnage, $this->_health PV, $this->_rage de rage, arme principale : $this->_weapon $this->_weaponDamage dégats, $this->_shield $this->_shieldValue points d'armures<br></h2>";
         // }
 
+
+        // #################################################
+        // #####                Getters                #####
+        // #################################################
+
         public function getWeapon():string{
             return $this->_weapon;
         }
@@ -35,6 +43,10 @@
         public function getShieldValue():int{
             return $this->_shieldValue;
         }
+
+        // #################################################
+        // #####                Setters                #####
+        // #################################################
 
         public function setWeapon(string $value):void{
             $this->_weapon = $value;
@@ -49,7 +61,10 @@
             $this->_shieldValue = $value;
         }
 
-        // Autres méthodes
+        // #################################################
+        // #####            Autres méthodes            #####
+        // #################################################
+
         /**
          * @param mixed $damages
          * 

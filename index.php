@@ -2,8 +2,8 @@
     require_once(__DIR__ .'/Hero.php');
     require_once(__DIR__ .'/Orc.php');
 
-    $hero = new Hero(2000, 0, 'Excalibur', 250, 'Armure de plate', 200);
-    $orc = new Orc(500, 0);
+    $hero = new Hero(2000, 0, 'Excalibur', 500, 'Armure de plate', 200);
+    $orc = new Orc(1500, 0);
 ?>
 
 <!DOCTYPE html>
@@ -19,11 +19,11 @@
 <body>
     <div class="infos">
         <?php
-            echo '<span class="heroMaxLife">'.$hero->getHealth().'</span>';
-            echo '<span class="heroArmor">'.$hero->getShieldValue().'</span>';
-            echo '<span class="orcDamage">'.$orc->getDamages().'</span>';
-            echo '<span class="orcMaxLife">'.$orc->getHealth().'</span>';
-            echo '<span class="heroDamage">'.$hero->getWeaponDamage().'</span>';
+            echo '<span class="heroMaxLife">'.$hero->getHealth().'</span>
+            <span class="heroArmor">'.$hero->getShieldValue().'</span>
+            <span class="orcDamage">'.$orc->attack().'</span>
+            <span class="orcMaxLife">'.$orc->getHealth().'</span>
+            <span class="heroDamage">'.$hero->getWeaponDamage().'</span>';
         ?>
     </div>
 
@@ -52,22 +52,26 @@
     <form action="" method="POST">
         <button class="button" type="submit">RELANCER</button>
     </form>
-    
+
     <div class="resultContainer">
         <?php
             while($hero->getHealth() > 0 && $orc->getHealth() > 0) {
+                // Si le héro a 100 de rage au minimum, il attaque l'orc
+                // et sa rage est réinitialisée à 0
                 if($hero->getRage() >= 100) {
                     $hero->setRage(0);
                     $orc->setHealth($orc->getHealth() - $hero->getWeaponDamage());
+                    
+                    // Si l'orc a encore des points de vie, affiche ses points de vie et les dégats qu'il subi
                     if($orc->getHealth() > 0) {
-                        echo '<span class="orcHealth">'.$orc->getHealth().'</span>';
-                        echo '<span class="heroAttack">'.$hero->getWeaponDamage().'</span>';
+                        echo '<span class="orcHealth">'.$orc->getHealth().'</span><span class="heroAttack">'.$hero->getWeaponDamage().'</span>';
+                    // Si l'orc a 0 point de vie ou moins, affiche le message de sa mort
                     } else if($orc->getHealth() <= 0){
                         echo '<span class="orcDeath"></span>';
                     }
-                }
-                if($hero->getHealth() > 0 && $orc->getHealth() > 0) {
-                    echo $hero->attacked($orc->getDamages());
+                // Sinon le héro est attaqué par l'orc
+                } else {
+                    echo $hero->attacked($orc->attack());
                 }
             }
             ?>

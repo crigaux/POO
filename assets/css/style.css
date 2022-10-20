@@ -74,13 +74,13 @@ h2 {
 
 .container .knight img {
     position: absolute;
-    bottom: -130px;
+    bottom: -100px;
     right: 50%;
 }
 
 .container .evilKnight img {
     position: absolute;
-    bottom: -130px;
+    bottom: -100px;
     left: 50%;
 }
 
@@ -192,6 +192,25 @@ button:disabled {
     }
 }
 
+@media (max-width:1600px) {
+    @keyframes evilKnightMove {
+        0% {
+            transform: translateX(15%) rotateY(180deg);
+        }
+        100% {
+            transform: translateX(-77%) rotateY(180deg);
+        }
+    }
+    
+    @keyframes knightMove {
+        0% {
+            transform: translateX(-15%);
+        }
+        100% {
+            transform: translateX(77%);
+        }
+    }
+}
 
 @media (max-width:1350px) {
     .container .knight img {
@@ -367,13 +386,13 @@ button:disabled {
 
 @media (max-width: 375px) {
     .container .knight img {
-        bottom: -60px;
+        bottom: -55px;
         right: 50%;
         transform: translateX(50%);
     }
     
     .container .evilKnight img {
-        bottom: -60px;
+        bottom: -55px;
         left: 50%;
         transform: translateX(-50%) rotateY(180deg);
     }
